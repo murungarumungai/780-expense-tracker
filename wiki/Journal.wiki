@@ -1,2 +1,6 @@
 Feb 28 - Mar 07 <br />
-Project design 
+Project design  <br />
+
+Mar 14 - Mar 21 <br />
+UI implementation <br />
+Use action bar to navigate among "expense", "setting" and "mobile wallet" screen. <br />
