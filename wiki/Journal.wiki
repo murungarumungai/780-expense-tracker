@@ -3,3 +3,5 @@
 
 <h4>Mar 14 - Mar 21  UI implementation </h4>
 Use action bar to navigate among "expense", "setting" and "mobile wallet" screen. <br />
+
+ -Implemented the very first two UI's.
