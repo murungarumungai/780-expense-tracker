@@ -9,4 +9,5 @@
 <h4>Mar 21 - Mar 28  UI implementation </h4>
 
 -Change the previous UI. Make a separate activity to allow user to set the data range and preferred chart type.<br />
+-Implement the connection between device and backend database.<br />
 -Finish the login and signup page.
