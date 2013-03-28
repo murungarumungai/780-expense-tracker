@@ -13,7 +13,7 @@ Problems
 
 -the UI might not be intuitive
 
--haven't pick a what kind of backend database to use
+-haven't pick what kind of backend database to use
 
 Lesson learned
 
@@ -27,8 +27,22 @@ Plan for next week
 
 -pick a backend database to use
 
-<h4>Mar 21 - Mar 28  UI implementation </h4>
+<h4>Mar 21 - Mar 28 </h4>
 
--Change the previous UI. Make a separate activity to allow user to set the data range and preferred chart type.<br />
--Implement the connection between device and backend database.<br />
--Finish the login and signup page.
+Progress
+
+-Changed the previous UI. Make a separate activity to allow user to set the data range and preferred chart type.<br />
+-Set up the connection between device and backend database.<br />
+-Finished UI for the login and signup page.
+
+Lesson Learned
+
+how to connect to MySQL database via HttpClient and parse JSON format
+
+Plan for next week
+
+-Finish UI implementation
+
+-Implement login and signup mechanism
+
+-populate MysQL database 
