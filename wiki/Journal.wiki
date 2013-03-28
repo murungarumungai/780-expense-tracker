@@ -2,6 +2,11 @@
 
 
 <h4>Mar 14 - Mar 21  UI implementation </h4>
-Use action bar to navigate among "expense", "setting" and "mobile wallet" screen. <br />
 
- -Implemented the very first two UI's.
+-Use action bar to navigate among "expense", "setting" and "mobile wallet" screen. <br />
+-Implemented the very first two UI's.
+
+<h4>Mar 21 - Mar 28  UI implementation </h4>
+
+-Change the previous UI. Make a separate activity to allow user to set the data range and preferred chart type.<br />
+-Finish the login and signup page.
