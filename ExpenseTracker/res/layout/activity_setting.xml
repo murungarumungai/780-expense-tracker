@@ -1,0 +1,123 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" android:layout_height="fill_parent">
+
+
+<RelativeLayout 
+    android:focusable="true" 
+    android:focusableInTouchMode="true"
+    android:id="@+id/settingLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    
+     <RadioGroup
+        android:id="@+id/radioGroup1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkedButton="@+id/month"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/monthSetting"
+            
+            android:checked="true"
+            />
+            
+
+        <RadioButton
+            android:id="@+id/week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/weekSetting" 
+            
+            />
+
+        <RadioButton
+            android:id="@+id/other"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/otherSetting" 
+            
+			/>
+    </RadioGroup>
+
+      
+      <TextView
+          android:id="@+id/textView1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/radioGroup1"
+          android:layout_alignParentLeft="true"
+          android:text="From: "
+          android:layout_marginTop="43dp"
+          android:layout_marginLeft="20dp"
+          android:textAppearance="?android:attr/textAppearanceLarge" />
+      
+      <EditText
+          android:id="@+id/showStartDate"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/radioGroup1"
+          android:layout_centerHorizontal="true"
+          android:focusable="false"
+          android:textAppearance="?android:attr/textAppearanceLarge" 
+          android:layout_marginTop="31dp" />
+      
+       <TextView
+          android:id="@+id/textView2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/showStartDate"
+          android:layout_alignParentLeft="true"
+          android:text="To: "
+          android:layout_marginTop="43dp"
+          android:layout_marginLeft="20dp"
+          android:textAppearance="?android:attr/textAppearanceLarge" />
+      
+      <EditText
+          android:id="@+id/showEndDate"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/showStartDate"
+          android:layout_centerHorizontal="true"
+          android:focusable="false"
+          android:textAppearance="?android:attr/textAppearanceLarge" 
+          android:layout_marginTop="31dp" />
+       
+       <TextView
+          android:id="@+id/textView3"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/showEndDate"
+          android:layout_alignParentLeft="true"
+          android:text="Chart Type: "
+          android:layout_marginTop="40dp"
+          android:layout_marginLeft="5dp"
+          android:textAppearance="?android:attr/textAppearanceLarge" />
+      
+      <Spinner
+          android:id="@+id/chart_spinner"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/showEndDate"
+          android:layout_centerHorizontal="true"
+          android:layout_marginTop="31dp" />
+      
+
+      <Button
+          android:id="@+id/button1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentBottom="true"
+          android:layout_centerHorizontal="true"
+          android:layout_below="@+id/chart_spinner"
+          android:layout_marginTop="31dp"
+          android:onClick="onClick" 
+          android:text="@string/expense" />
+
+</RelativeLayout>
+</ScrollView>
