@@ -67,11 +67,11 @@ Lesson learned
 
 Plan for next week
 
--Finish signup mechanism
+-add more records to the database
+
+-allow one user to have different accounts
 
 -Format the layout of the data retrieved from the database
 
 -Use the chart library to make charts with the data from database
-
-
 
