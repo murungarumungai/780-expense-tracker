@@ -46,3 +46,32 @@ Plan for next week
 -Implement login and signup mechanism
 
 -populate MysQL database 
+
+
+<h4>Mar 28 - Apr 4 </h4>
+
+Progress
+
+-Finished UI implementation,added datepicker dialog to set up date range
+
+-Finished login mechanism
+
+-Populated MySQL database with one user account/record
+
+
+Lesson learned
+
+-Use android datepicker to select date
+
+-Query the MySQL database with specified username and password
+
+Plan for next week
+
+-Finish signup mechanism
+
+-Use the chart library to make charts with the data from database
+
+
+
+
+
