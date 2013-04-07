@@ -13,38 +13,50 @@
 		android:text="Tracking and visualizing spending via phone"
 		android:textAppearance="?android:attr/textAppearanceSmall" />
 
-	<EditText android:id="@+id/editText1" android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:layout_alignLeft="@+id/textView2"
-		android:layout_alignRight="@+id/textView2" android:layout_below="@+id/textView1"
-		android:layout_marginTop="14dp" android:ems="10" android:hint="Enter username"
-		android:inputType="textPersonName">
+	<EditText
+	    android:id="@+id/username"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/textView1"
+	    android:layout_marginTop="31dp"
+	    android:ems="10"
+	    android:hint="Enter username"
+	    android:inputType="textPersonName" >
 
-		<requestFocus />
-
+	    <requestFocus />
 	</EditText>
 
-	<EditText android:id="@+id/editText2" android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:layout_alignLeft="@+id/editText1"
-		android:layout_alignRight="@+id/editText1" android:layout_below="@+id/editText1"
-		android:layout_marginTop="42dp" android:ems="10" android:hint="Enter password"
-		android:inputType="textPassword" />
+	<EditText
+	    android:id="@+id/password"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/username"
+	    android:layout_marginTop="42dp"
+	    android:ems="10"
+	    android:hint="Enter password"
+	    android:inputType="textPassword" />
 
+	<CheckBox
+	    android:id="@+id/rememberBox"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_above="@+id/main_login"
+	    android:layout_alignLeft="@+id/textView1"
+	    android:layout_marginBottom="75dp"
+	    android:checked="false"
+	    android:text="Remember username" />
 
+	<Button
+	    android:id="@+id/main_login"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:layout_alignRight="@+id/password"
+	    android:layout_marginBottom="90dp"
+	    android:minWidth="140dp"
+	    android:onClick="onLogin"
+	    android:text="Login" />
 
-	<TextView android:id="@+id/textView2" android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:layout_below="@+id/main_login"
-		android:layout_centerHorizontal="true" android:layout_marginTop="44dp"
-		android:text="Don&apos;t have an ExpenseTracker account yet?"
-		android:textAppearance="?android:attr/textAppearanceSmall" />
-
-	<Button android:id="@+id/main_signup" android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:layout_alignLeft="@+id/textView2"
-		android:layout_alignRight="@+id/textView2" android:layout_below="@+id/textView2"
-		android:layout_marginTop="33dp" android:text="Sign Up" />
-
-	<Button android:id="@+id/main_login" android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:layout_alignRight="@+id/textView2"
-		android:layout_below="@+id/editText2" android:layout_marginTop="52dp"
-		android:minWidth="140dp" android:text="Login" android:onClick="onLogin" />
+	
 
 </RelativeLayout>

@@ -16,6 +16,12 @@
     <string name="weekSetting">week</string>
     <string name="otherSetting">Other</string>
     
+    <string-array name="range_array">
+        <item>Day</item>
+        <item>Week</item>
+        <item>Month</item>
+        <item>Year</item>
+    </string-array>
     
     <string-array name="charts_array">
         <item>Pie Chart</item>
