@@ -28,24 +28,26 @@ public class DetailFragment extends Fragment {
         View fragView = inflater.inflate(R.layout.fragment_detail, container, false);
 
         text = (TextView) fragView.findViewById(R.id.detail_result);
-        String[] param =  new String[2];
+        String[] param =  new String[3];
         param[0] = ((ExpenseActivity) this.getActivity()).getStartDate();
         param[1] = ((ExpenseActivity) this.getActivity()).getEndDate();
+        param[2] = ((ExpenseActivity) this.getActivity()).getAccountNumber();
         new GetDetail().execute(param);
 
         return fragView;
     }
     
     
-    private class GetDetail extends AsyncTask<String[], Void, String> {
+    private class GetDetail extends AsyncTask<String, Void, String> {
     	//TextView text;
 
 		@Override
-		protected String doInBackground(String[]... args) {
+		protected String doInBackground(String... args) {
 			//this.text = arg[0];
 			ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-		    nameValuePairs.add(new BasicNameValuePair("start",args[0][0]));
-		    nameValuePairs.add(new BasicNameValuePair("end",args[0][1]));
+		    nameValuePairs.add(new BasicNameValuePair("start",args[0]));
+		    nameValuePairs.add(new BasicNameValuePair("end",args[1]));
+		    nameValuePairs.add(new BasicNameValuePair("account",args[2]));
 			return CustomHttpClient.parseResult(CustomHttpClient.getResult("http://thecity.sfsu.edu/~weiw/detail.php", nameValuePairs));
 		}
 		protected void onPostExecute(String page)

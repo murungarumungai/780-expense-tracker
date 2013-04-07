@@ -9,8 +9,9 @@ package com.example.expensetracker;
 
 public final class R {
     public static final class array {
-        public static final int charts_array=0x7f060000;
-        public static final int view_array=0x7f060001;
+        public static final int charts_array=0x7f060001;
+        public static final int range_array=0x7f060000;
+        public static final int view_array=0x7f060002;
     }
     public static final class attr {
     }
@@ -28,35 +29,37 @@ public final class R {
         public static final int ic_menu_share=0x7f020004;
     }
     public static final class id {
-        public static final int RelativeLayout1=0x7f090014;
-        public static final int RelativeLayout3=0x7f090017;
-        public static final int action_settings=0x7f09001c;
-        public static final int button1=0x7f090010;
-        public static final int category=0x7f09001a;
-        public static final int category_result=0x7f090015;
-        public static final int chart_spinner=0x7f09000f;
-        public static final int checkBox1=0x7f090019;
-        public static final int detail_result=0x7f090016;
-        public static final int editText1=0x7f090002;
-        public static final int editText2=0x7f090004;
+        public static final int RelativeLayout1=0x7f090016;
+        public static final int RelativeLayout3=0x7f090019;
+        public static final int account_spinner=0x7f09000b;
+        public static final int account_text=0x7f090009;
+        public static final int action_settings=0x7f09001e;
+        public static final int button1=0x7f09000e;
+        public static final int category=0x7f09001c;
+        public static final int category_result=0x7f090017;
+        public static final int chart_spinner=0x7f09000d;
+        public static final int chart_text=0x7f09000c;
+        public static final int checkBox1=0x7f09001b;
+        public static final int detail_result=0x7f090018;
+        public static final int editText1=0x7f090015;
+        public static final int editText2=0x7f090014;
         public static final int editText3=0x7f090012;
         public static final int editText4=0x7f090011;
         public static final int fragment_content=0x7f090000;
         public static final int main_login=0x7f090005;
-        public static final int main_signup=0x7f090006;
-        public static final int month=0x7f090009;
-        public static final int other=0x7f09000b;
-        public static final int radioGroup1=0x7f090008;
-        public static final int record=0x7f09001b;
+        public static final int password=0x7f090003;
+        public static final int range_spinner=0x7f09000a;
+        public static final int record=0x7f09001d;
+        public static final int rememberBox=0x7f090004;
         public static final int second_signup=0x7f090013;
-        public static final int settingLayout=0x7f090007;
-        public static final int showEndDate=0x7f09000d;
-        public static final int showStartDate=0x7f09000c;
-        public static final int text3=0x7f090018;
+        public static final int settingLayout=0x7f090006;
+        public static final int setting_table=0x7f090007;
+        public static final int showStartDate=0x7f090008;
+        public static final int text3=0x7f09001a;
         public static final int textView1=0x7f090001;
-        public static final int textView2=0x7f090003;
-        public static final int textView3=0x7f09000e;
-        public static final int week=0x7f09000a;
+        public static final int textView2=0x7f09000f;
+        public static final int textView3=0x7f090010;
+        public static final int username=0x7f090002;
     }
     public static final class layout {
         public static final int activity_expense=0x7f030000;

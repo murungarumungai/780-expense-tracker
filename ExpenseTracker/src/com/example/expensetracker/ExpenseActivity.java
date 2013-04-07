@@ -21,20 +21,21 @@ import android.widget.TextView;
 public class ExpenseActivity extends Activity{
 	String startDate;
 	String endDate;
+	String accountNumber;
 	 protected void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
 	        Bundle extras = getIntent().getExtras();
 	        startDate = extras.getString("start_date");
 	        endDate = extras.getString("end_date");
+	        accountNumber = extras.getString("account_number");
 
 	        final ActionBar bar = getActionBar();
 	        bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 	        
 
-	        String text = "Spending";
 	        bar.addTab(bar.newTab()
 	                .setText(R.string.categories)
-	                .setTabListener(new TabListener(new CategoryFragment(text))));
+	                .setTabListener(new TabListener(new CategoryFragment())));
 	        
 	        bar.addTab(bar.newTab()
 	                .setText(R.string.details)
@@ -54,6 +55,9 @@ public class ExpenseActivity extends Activity{
 	 
 	 public String getEndDate(){
 		 return convertDate(endDate);
+	 }
+	 public String getAccountNumber(){
+		 return accountNumber;
 	 }
 	 
 	 public String convertDate(String mDate){

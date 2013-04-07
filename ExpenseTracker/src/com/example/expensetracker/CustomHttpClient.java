@@ -66,13 +66,48 @@ public class CustomHttpClient {
             JSONArray jArray = new JSONArray(result);
             for(int i=0;i<jArray.length();i++){
                     JSONObject json_data = jArray.getJSONObject(i);
-                    /*Log.i("log_tag","id: "+json_data.getInt("id")+
-                            ", name: "+json_data.getString("name")+
-                            ", sex: "+json_data.getInt("sex")+
-                            ", birthyear: "+json_data.getInt("birthyear")
-                    );*/
+                    
                     //Get an output to the screen
-                    returnString = json_data.getString("date") +", "+ json_data.getString("description") +", "+ json_data.getDouble("amount");
+                    returnString += json_data.getString("date") +"\t"+ json_data.getString("type") +"\t "+ json_data.getString("description") +"\t "+ json_data.getDouble("amount")+"\n";
+            }
+    }catch(JSONException e){
+            Log.e("log_tag", "Error parsing data "+e.toString());
+    }
+    return returnString;
+	
+	}
+	
+	public static ArrayList<String> getAccount(String result){
+		
+		ArrayList<String> accountList = new ArrayList<String>();
+		
+		try{
+			
+			JSONArray jArray = new JSONArray(result);
+            
+			for(int i=0;i<jArray.length();i++){
+				JSONObject json_data = jArray.getJSONObject(i);
+				accountList.add(json_data.getString("account_number"));
+				}
+            }
+		catch(JSONException e){
+			Log.e("log_tag", "Error parsing data "+e.toString());
+			}
+    
+		return accountList;
+	
+	}
+	
+	public static String getCategoryAmount(String result){
+		String returnString = "";
+		
+		try{
+            JSONArray jArray = new JSONArray(result);
+            for(int i=0;i<jArray.length();i++){
+                    JSONObject json_data = jArray.getJSONObject(i);
+                    
+                    //Get an output to the screen
+                    returnString += "Total amount for "+ json_data.getString("type")+":\t" +json_data.getString("total") +"\n";
             }
     }catch(JSONException e){
             Log.e("log_tag", "Error parsing data "+e.toString());

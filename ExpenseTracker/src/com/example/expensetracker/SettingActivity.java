@@ -1,12 +1,21 @@
 package com.example.expensetracker;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,6 +26,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -26,7 +36,9 @@ import android.widget.TextView;
 public class SettingActivity extends Activity {
 	protected static final int DATE_DIALOG_ID = 0;
 	EditText startDate;
-	EditText endDate;
+	Spinner rangeSpinner,accountSpinner,chartSpinner;
+	
+	
 	static final int DATE_DIALOG_ID1 = 1;
 	private int startYear;
 	private int startMonth;
@@ -40,58 +52,39 @@ public class SettingActivity extends Activity {
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.activity_setting);
-        Spinner spinner = (Spinner) findViewById(R.id.chart_spinner);
+        
+        rangeSpinner = (Spinner) findViewById(R.id.range_spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        ArrayAdapter<CharSequence> rangeAdapter = ArrayAdapter.createFromResource(this,
+                R.array.range_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        rangeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        rangeSpinner.setAdapter(rangeAdapter);
+        
+        chartSpinner = (Spinner) findViewById(R.id.chart_spinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> chartAdapter = ArrayAdapter.createFromResource(this,
                 R.array.charts_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        chartAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
+        chartSpinner.setAdapter(chartAdapter);
         
+        accountSpinner = (Spinner) findViewById(R.id.account_spinner);
+        Bundle extras = getIntent().getExtras();
+        new GetAccountNumber().execute(extras.getString("username"));
         
-final RadioButton monthButton = (RadioButton) findViewById(R.id.month);
-        
-        
-        if(monthButton.isChecked()){
-        	 setStartDate((EditText) findViewById(R.id.showStartDate), 1);
-            setEndDate((EditText) findViewById(R.id.showEndDate), 1);
-        }
-        
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup1);        
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) 
-            {
-                
-            	if(checkedId == R.id.month){
-            		setStartDate((EditText) findViewById(R.id.showStartDate), 1);
-                    setEndDate((EditText) findViewById(R.id.showEndDate), 1);
-            	}
-            	
-            	else if (checkedId == R.id.week){
-            		setStartDate((EditText) findViewById(R.id.showStartDate), 2);
-                    setEndDate((EditText) findViewById(R.id.showEndDate), 2);
-            	}
-            	else{
-            		TextView text = (TextView) findViewById(R.id.showStartDate);
-                    text.setText("");
-                    TextView text2 = (TextView) findViewById(R.id.showEndDate);
-                    text2.setText("");
-            		
-            	}
-            		
-            }
-        });
+        startDate = (EditText) findViewById(R.id.showStartDate);
+        setDefaultStartDate();
         final Calendar c = Calendar.getInstance();
         startYear = c.get(Calendar.YEAR);
-        endYear = startYear;
+        
         startMonth = c.get(Calendar.MONTH);
-        endMonth = startMonth;
+        
         startDay = c.get(Calendar.DAY_OF_MONTH);
-        endDay = startDay;
-        startDate = (EditText) findViewById(R.id.showStartDate);
+       
+        
         
         startDate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -99,33 +92,17 @@ final RadioButton monthButton = (RadioButton) findViewById(R.id.month);
             }
         });
         
-        
-        endDate = (EditText) findViewById(R.id.showEndDate);
-        
-        endDate.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showDialog(DATE_DIALOG_ID1);
-            }
-        });
-
+       
     }
     
     protected Dialog onCreateDialog(int id) {
-        switch (id) {
-        case DATE_DIALOG_ID:
-            return new DatePickerDialog(this, mDateSetListener, startYear, startMonth,
-                    startDay);
-
-        case DATE_DIALOG_ID1:
-            return new DatePickerDialog(this, mDateSetListener1, endYear, endMonth,
-                    endDay);
-        }
-        return null;
+    	return new DatePickerDialog(this, mDateSetListener, startYear, startMonth,startDay);
     }
 
     // updates the date in the TextView
 
-    private void updateDisplay(EditText text,int month, int day, int year) {
+    private String formatDate(int month, int day, int year) {
+    	// Month is 0 based so add 1
     	month++;
     	String formattedMonth;
     	String formattedDay;
@@ -139,9 +116,9 @@ final RadioButton monthButton = (RadioButton) findViewById(R.id.month);
     	else
     		formattedDay = Integer.toString(day);
     	
-    	text.setText(new StringBuilder()
-        // Month is 0 based so add 1
-                .append(formattedMonth).append("-").append(formattedDay).append("-").append(year));
+    	return (new StringBuilder()
+        
+                .append(formattedMonth).append("-").append(formattedDay).append("-").append(year)).toString();
     }
     
     // the callback received when the user "sets" the date in the dialog
@@ -153,98 +130,103 @@ final RadioButton monthButton = (RadioButton) findViewById(R.id.month);
             startYear = year;
             startMonth = monthOfYear;
             startDay = dayOfMonth;
-            updateDisplay(startDate,startMonth,startDay,startYear);
+            String sDate = formatDate(startMonth,startDay,startYear);
+            startDate.setText(sDate);
         }
     };
 
-    private DatePickerDialog.OnDateSetListener mDateSetListener1 = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year1, int monthOfYear1,
-                int dayOfMonth1) {
-            // TODO Auto-generated method stub
-            endYear = year1;
-            endMonth = monthOfYear1;
-            endDay = dayOfMonth1;
-            updateDisplay(endDate,endMonth,endDay,endYear);
-        }
-    };   
-public void setStartDate(EditText text, int mode){
+ 
+public void setDefaultStartDate(){
     	
 		Calendar c= Calendar.getInstance();
-		int year;
-		int month;
-		int day;
+		int year= c.get(Calendar.YEAR);
+		int month= c.get(Calendar.MONTH);
+		int day= c.get(Calendar.DAY_OF_MONTH);
 		
-		if(mode ==1){
-			year = c.get(Calendar.YEAR);
-			month = c.get(Calendar.MONTH);
-			day = 1;
-			
-		}
-			
-		else{
-			c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-			year = c.get(Calendar.YEAR);
-			month = c.get(Calendar.MONTH);
-			year = c.get(Calendar.YEAR);
-			day = c.get(Calendar.DAY_OF_MONTH);
-			
-		}
+		String sDate = formatDate(month,day,year);
+        startDate.setText(sDate);
  
-		updateDisplay(text,month,day,year);
- 
-    	
     }
     
-public void setEndDate(EditText text, int mode){
- 
-		Calendar c = Calendar.getInstance();
-		int year = c.get(Calendar.YEAR);
-		int month = c.get(Calendar.MONTH);
-		int day;
+	public String calEndDate(){
+		String start = startDate.getText().toString();
+		SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
+		Date sDate = null;
+		try {
+			sDate = format.parse(start);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		if(mode ==1){
-			switch(month){
-			case 0:case 2:case 4:case 6:case 7:case 9:case 11:
-				day = 31;
-				break;
-			case 1:
-				if(year % 4 == 0)
-					day = 29;
-				else
-					day = 28;
-				break;	
-			default:
-				day = 30;
-				break;
-				}
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(sDate);
+		
+		String range = rangeSpinner.getSelectedItem().toString();
+
+		
+		if(range.equals("Day")){
+			cal.add(Calendar.DATE, 1);
+		}
+		else if(range.equals("Week")){
+			cal.add(Calendar.DATE, 7);
+		}
+		else if(range.equals("Month")){
+			cal.add(Calendar.MONTH, 1);
 		}
 		else{
-			c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-			year = c.get(Calendar.YEAR);
-			month = c.get(Calendar.MONTH);
-			year = c.get(Calendar.YEAR);
-			day = c.get(Calendar.DAY_OF_MONTH);
-			
+			cal.add(Calendar.YEAR, 1);
 		}
-			
-		updateDisplay(text,month,day,year);
- 
-    	
+		
+		int year= cal.get(Calendar.YEAR);
+		int month= cal.get(Calendar.MONTH);
+		int day= cal.get(Calendar.DAY_OF_MONTH);
+		
+		String eDate = formatDate(month,day,year);
+		Toast.makeText(getApplicationContext(), eDate, Toast.LENGTH_LONG).show();
+		return eDate;
+	    	
     }
 
-public void onClick(View v) {
-    //resultField.setText("");
+	public void onClick(View v) {
+		
+	    Intent intent = new Intent(this, ExpenseActivity.class);
+	    intent.putExtra("start_date", startDate.getText().toString());
+	    
+	    String endDate = calEndDate();
+	    intent.putExtra("end_date", endDate);
+	    intent.putExtra("account_number",accountSpinner.getSelectedItem().toString());
+	   
+	    startActivity(intent);
+		
+		
+	}
 	
-    Intent intent = new Intent(this, ExpenseActivity.class);
-    intent.putExtra("start_date", startDate.getText().toString());
-    intent.putExtra("end_date", endDate.getText().toString());
-    /**
-     * Start YellowActivity and wait for the result.
-     */
-    startActivity(intent);
-	
-	
-}
+	private class GetAccountNumber extends AsyncTask<String, Void, ArrayList<String>> {
+    	//TextView text;
+
+		@Override
+		protected ArrayList<String> doInBackground(String... args) {
+			//this.text = arg[0];
+			ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		    nameValuePairs.add(new BasicNameValuePair("username",args[0]));
+			return CustomHttpClient.getAccount(CustomHttpClient.getResult("http://thecity.sfsu.edu/~weiw/account.php", nameValuePairs));
+			
+		}
+		protected void onPostExecute(ArrayList<String> list)
+		{ 
+			
+			// Create an ArrayAdapter using the string array and a default spinner layout
+	        ArrayAdapter<String> accountAdapter = new ArrayAdapter<String>(SettingActivity.this,
+	        		android.R.layout.simple_spinner_item, list.toArray(new String[list.size()]));
+	        // Specify the layout to use when the list of choices appears
+	        accountAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	        // Apply the adapter to the spinner
+	        accountSpinner.setAdapter(accountAdapter);
+		}	
+    	
+    
+    }
+
 
 }
