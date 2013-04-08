@@ -183,7 +183,7 @@ public void setDefaultStartDate(){
 		int day= cal.get(Calendar.DAY_OF_MONTH);
 		
 		String eDate = formatDate(month,day,year);
-		Toast.makeText(getApplicationContext(), eDate, Toast.LENGTH_LONG).show();
+		
 		return eDate;
 	    	
     }
