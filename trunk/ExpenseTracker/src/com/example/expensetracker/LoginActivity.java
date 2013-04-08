@@ -66,7 +66,6 @@ public class LoginActivity extends Activity {
 			 editor.commit();
 		}
 		else{
-			Toast.makeText(getApplicationContext(), "unchecked", Toast.LENGTH_LONG).show();
 			editor.clear();
 			editor.commit();
 		}
