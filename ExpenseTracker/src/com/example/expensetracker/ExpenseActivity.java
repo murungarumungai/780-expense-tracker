@@ -22,12 +22,14 @@ public class ExpenseActivity extends Activity{
 	String startDate;
 	String endDate;
 	String accountNumber;
+	String chartType;
 	 protected void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
 	        Bundle extras = getIntent().getExtras();
 	        startDate = extras.getString("start_date");
 	        endDate = extras.getString("end_date");
 	        accountNumber = extras.getString("account_number");
+	        chartType = extras.getString("chart_type");
 
 	        final ActionBar bar = getActionBar();
 	        bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -60,6 +62,9 @@ public class ExpenseActivity extends Activity{
 		 return accountNumber;
 	 }
 	 
+	 public String getChartType(){
+		 return chartType;
+	 }
 	 public String convertDate(String mDate){
 		 return mDate.substring(6)+ "-"+mDate.substring(0,2)+"-"+ mDate.substring(3,5);
 	 }
