@@ -196,6 +196,7 @@ public void setDefaultStartDate(){
 	    String endDate = calEndDate();
 	    intent.putExtra("end_date", endDate);
 	    intent.putExtra("account_number",accountSpinner.getSelectedItem().toString());
+	    intent.putExtra("chart_type",chartSpinner.getSelectedItem().toString());
 	   
 	    startActivity(intent);
 		

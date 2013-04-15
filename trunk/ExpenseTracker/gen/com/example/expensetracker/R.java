@@ -36,7 +36,7 @@ public final class R {
         public static final int action_settings=0x7f09001e;
         public static final int button1=0x7f09000e;
         public static final int category=0x7f09001c;
-        public static final int category_result=0x7f090017;
+        public static final int chartView=0x7f090017;
         public static final int chart_spinner=0x7f09000d;
         public static final int chart_text=0x7f09000c;
         public static final int checkBox1=0x7f09001b;
