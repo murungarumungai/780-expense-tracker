@@ -75,3 +75,31 @@ Plan for next week
 
 -Use the chart library to make charts with the data from database
 
+<h4>Apr 4 - Apr 11 </h4>
+
+Progress
+
+-Implemented chart to visualize result
+
+-Used sharedPreferences to store username in the device
+
+-Used drop down list of to let user pick different accounts
+
+-Added more data in the database
+
+-changed date picker, with start date and date range
+
+Lesson learned
+
+-Use google chart tool to implement chart
+
+-Use sharedPreference to store information in the device
+
+
+Plan for next week
+
+-add purchase button to allow user input purchase
+
+-add balance table in the database to record the account's balance
+
+-read/write NFC tag
