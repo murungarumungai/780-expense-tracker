@@ -79,7 +79,7 @@ Plan for next week
 
 Progress
 
--Implemented chart to visualize result
+-Implemented pie chart to visualize result
 
 -Used sharedPreferences to store username in the device
 
@@ -103,3 +103,28 @@ Plan for next week
 -add balance table in the database to record the account's balance
 
 -read/write NFC tag
+
+<h4>Apr 11 - Apr 18 </h4>
+
+Progress
+
+-Implemented 2 additional chart type(bar chart, line chart) to visualize result
+
+-added the account type(saving, checking, credit card) to the account table in the database
+
+-added the account type along with the account number in the drop down list on the device to let user pick the account
+
+-changed database to allow balance calculation
+
+
+Lesson learned
+
+-Use google chart tool to implement bar chart and line chart
+
+-read/write to NFC tag
+
+Plan for next week
+
+-add purchase button to allow user input purchase
+
+-update the database when user input purchase
