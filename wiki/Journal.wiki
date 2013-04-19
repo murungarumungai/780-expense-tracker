@@ -128,3 +128,5 @@ Plan for next week
 -add purchase button to allow user input purchase
 
 -update the database when user input purchase
+
+-read/write to NFC tag
