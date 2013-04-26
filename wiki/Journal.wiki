@@ -130,3 +130,27 @@ Plan for next week
 -update the database when user input purchase
 
 -read/write to NFC tag
+
+<h4>Apr 18 - Apr 25 </h4>
+
+Progress
+
+-added purchase button to allow user input purchase
+
+-updated the database to when user inputs purchase record
+
+-write to NFC tag
+
+
+Lesson learned
+
+-insert to database
+
+-read/write to NFC tag
+
+
+Plan for next week
+
+-read NFC tag
+
+-update record according to the information in the NFC tag
