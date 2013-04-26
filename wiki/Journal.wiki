@@ -151,6 +151,6 @@ Lesson learned
 
 Plan for next week
 
--read NFC tag
+-read NFC tag and parse the information
 
 -update record according to the information in the NFC tag
