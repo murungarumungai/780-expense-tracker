@@ -154,3 +154,24 @@ Plan for next week
 -read NFC tag and parse the information
 
 -update record according to the information in the NFC tag
+
+
+<h4>Apr 25 - May 2 </h4>
+
+Progress
+
+-read NFC tag and parsed the information
+
+-updated record according to the information in the NFC tag
+
+
+Lesson learned
+
+-read/write to NFC tag
+
+
+Plan for next week
+
+-Improve UI
+
+-Test and fix bugs
