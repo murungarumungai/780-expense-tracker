@@ -160,7 +160,7 @@ Plan for next week
 
 Progress
 
--read NFC tag and parsed the information
+-implemented purchase using NFC tag functionality
 
 -updated record according to the information in the NFC tag
 
