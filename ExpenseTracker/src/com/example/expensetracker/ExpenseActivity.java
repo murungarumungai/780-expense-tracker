@@ -43,10 +43,7 @@ public class ExpenseActivity extends Activity{
 	                .setText(R.string.details)
 	                .setTabListener(new TabListener(new DetailFragment())));
 	        
-	        /*String text3 = "Mobile Wallet";
-	        bar.addTab(bar.newTab()
-	                .setText(R.string.mobileWallet)
-	                .setTabListener(new TabListener(new MobileWalletFragment(text3))));*/
+	       
 	       
 	        setContentView(R.layout.activity_expense);
 	 }
@@ -65,7 +62,7 @@ public class ExpenseActivity extends Activity{
 	 public String getChartType(){
 		 return chartType;
 	 }
-	 public String convertDate(String mDate){
+	 public static String convertDate(String mDate){
 		 return mDate.substring(6)+ "-"+mDate.substring(0,2)+"-"+ mDate.substring(3,5);
 	 }
 

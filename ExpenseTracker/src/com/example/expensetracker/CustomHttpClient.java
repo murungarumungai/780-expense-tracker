@@ -34,18 +34,12 @@ public class CustomHttpClient {
 		InputStream is = null;
 		String result= null;
 		 try{
-	            HttpClient httpclient = new DefaultHttpClient();
-	            
+	            HttpClient httpclient = new DefaultHttpClient();  
 	            HttpPost httppost = new HttpPost(url);
-	           
-	            httppost.setEntity(new UrlEncodedFormEntity(postParameters));
-	            
+	            httppost.setEntity(new UrlEncodedFormEntity(postParameters)); 
 	            HttpResponse response = httpclient.execute(httppost);
-	            
 	            HttpEntity entity = response.getEntity();
-	            
-	            is = entity.getContent();
-	            
+	            is = entity.getContent();       
 
 	    }catch(Exception e){
 	            Log.e("log_tag", "Error in http connection "+e.toString());
@@ -86,6 +80,26 @@ public class CustomHttpClient {
 	
 	}
 	
+	public static String getBalance(String result){
+		double balance=0;
+		String type;
+
+		try{
+            JSONArray jArray = new JSONArray(result);
+            JSONObject json_data = jArray.getJSONObject(0);
+            type = json_data.getString("category");
+            balance = json_data.getDouble("total");
+            if((type.equals("c") || type.equals("s"))){
+            	balance = (-1)*balance;
+            }
+        }
+		catch(JSONException e){
+			Log.e("log_tag", "Error parsing data "+e.toString());
+			}
+		return Double.toString(balance);
+	
+	}
+	
 	public static ArrayList<String> getAccount(String result){
 		
 		ArrayList<String> accountList = new ArrayList<String>();
@@ -96,7 +110,18 @@ public class CustomHttpClient {
             
 			for(int i=0;i<jArray.length();i++){
 				JSONObject json_data = jArray.getJSONObject(i);
-				accountList.add(json_data.getString("account_number"));
+				String type= json_data.getString("type");
+				String accountNum = json_data.getString("account_number");
+				if(type.equals("s"))
+					type = "Saving account";
+				else if(type.equals("c"))
+					type = "Checking account";
+				else if(type.equals("r"))
+					type = "Credit card";
+				else
+					type = "Other";
+				
+				accountList.add(type+" ("+accountNum+")");
 				}
             }
 		catch(JSONException e){
