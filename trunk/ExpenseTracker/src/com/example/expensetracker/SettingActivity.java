@@ -35,8 +35,8 @@ import android.widget.Toast;
  */
 public class SettingActivity extends Activity {
 	protected static final int DATE_DIALOG_ID = 0;
-	EditText startDate;
-	Spinner rangeSpinner,accountSpinner,chartSpinner;
+	private EditText startDate;
+	private Spinner rangeSpinner,accountSpinner,chartSpinner;
 	
 	
 	static final int DATE_DIALOG_ID1 = 1;
@@ -44,13 +44,14 @@ public class SettingActivity extends Activity {
 	private int startMonth;
 	private int startDay;
 
-	private int endYear;
-	private int endMonth;
-	private int endDay;
+	private String tag;
+	private static boolean isSettingOn = false;
+	private static ArrayList<String> accountList;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+        isSettingOn = true;
         setContentView(R.layout.activity_setting);
         
         rangeSpinner = (Spinner) findViewById(R.id.range_spinner);
@@ -72,8 +73,12 @@ public class SettingActivity extends Activity {
         chartSpinner.setAdapter(chartAdapter);
         
         accountSpinner = (Spinner) findViewById(R.id.account_spinner);
+        
         Bundle extras = getIntent().getExtras();
+        tag = extras.getString("tag");
         new GetAccountNumber().execute(extras.getString("username"));
+        
+        
         
         startDate = (EditText) findViewById(R.id.showStartDate);
         setDefaultStartDate();
@@ -101,7 +106,7 @@ public class SettingActivity extends Activity {
 
     // updates the date in the TextView
 
-    private String formatDate(int month, int day, int year) {
+    private static String formatDate(int month, int day, int year) {
     	// Month is 0 based so add 1
     	month++;
     	String formattedMonth;
@@ -147,6 +152,18 @@ public void setDefaultStartDate(){
         startDate.setText(sDate);
  
     }
+
+public static String getDefaultStartDate(){
+	
+	Calendar c= Calendar.getInstance();
+	int year= c.get(Calendar.YEAR);
+	int month= c.get(Calendar.MONTH);
+	int day= c.get(Calendar.DAY_OF_MONTH);
+	
+	String sDate = formatDate(month,day,year);
+    return sDate;
+}
+
     
 	public String calEndDate(){
 		String start = startDate.getText().toString();
@@ -188,14 +205,18 @@ public void setDefaultStartDate(){
 	    	
     }
 
-	public void onClick(View v) {
+	public void onClickView(View v) {
 		
 	    Intent intent = new Intent(this, ExpenseActivity.class);
 	    intent.putExtra("start_date", startDate.getText().toString());
 	    
 	    String endDate = calEndDate();
 	    intent.putExtra("end_date", endDate);
-	    intent.putExtra("account_number",accountSpinner.getSelectedItem().toString());
+	    String account = accountSpinner.getSelectedItem().toString();
+	    int start = account.indexOf("(")+1;
+	    int end = account.indexOf(")");
+	    String accountNum = account.substring(start,end);
+	    intent.putExtra("account_number",accountNum);
 	    intent.putExtra("chart_type",chartSpinner.getSelectedItem().toString());
 	   
 	    startActivity(intent);
@@ -203,7 +224,36 @@ public void setDefaultStartDate(){
 		
 	}
 	
-	private class GetAccountNumber extends AsyncTask<String, Void, ArrayList<String>> {
+	public void onClickAdd(View v) {
+		Intent intent;
+			
+		intent = new Intent(this, RecordActivity.class);
+		
+	    intent.putExtra("date", startDate.getText().toString());
+	    
+	    String account = accountSpinner.getSelectedItem().toString();
+	    //int start = account.indexOf("(")+1;
+	   // int end = account.indexOf(")");
+	    //String accountNum = account.substring(start,end);
+	    intent.putExtra("account",account);
+	    intent.putExtra("tag",tag);
+	   
+	    startActivity(intent);
+			
+			
+		}
+	
+public String getAccount(){
+	return accountSpinner.getSelectedItem().toString();
+}
+	public static ArrayList<String> getAccountList(){
+		return accountList;
+	}
+	
+	public static boolean getSettingStatus(){
+		return isSettingOn;
+	}
+	public class GetAccountNumber extends AsyncTask<String, Void, ArrayList<String>> {
     	//TextView text;
 
 		@Override
@@ -215,8 +265,7 @@ public void setDefaultStartDate(){
 			
 		}
 		protected void onPostExecute(ArrayList<String> list)
-		{ 
-			
+		{			
 			// Create an ArrayAdapter using the string array and a default spinner layout
 	        ArrayAdapter<String> accountAdapter = new ArrayAdapter<String>(SettingActivity.this,
 	        		android.R.layout.simple_spinner_item, list.toArray(new String[list.size()]));
@@ -224,6 +273,20 @@ public void setDefaultStartDate(){
 	        accountAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	        // Apply the adapter to the spinner
 	        accountSpinner.setAdapter(accountAdapter);
+	        
+	        accountList = list;
+	        if(NfcActivity.getTagStatus()){
+		        Intent intent = new Intent(SettingActivity.this, NfcActivity.class);
+		        
+		        //intent.putStringArrayListExtra("list", list);
+		        intent.putExtra("tag",tag);
+		        //intent.putExtra("date", startDate.getText().toString());
+		        //tag = null;
+			    startActivity(intent);
+			    
+	        }
+			
+	        
 		}	
     	
     

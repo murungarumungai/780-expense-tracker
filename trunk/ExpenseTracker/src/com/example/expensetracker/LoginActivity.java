@@ -6,8 +6,11 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 
+import android.nfc.NdefMessage;
+import android.nfc.NfcAdapter;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,6 +27,8 @@ public class LoginActivity extends Activity {
 	private EditText username;
 	private EditText password;
 	private CheckBox cBox;
+	private String tag;
+	private static boolean isLoggedIn;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,14 @@ public class LoginActivity extends Activity {
 		password = (EditText) findViewById(R.id.password);
 		cBox = (CheckBox) findViewById(R.id.rememberBox);
 		
+		if(NfcActivity.getNfcActivityStatus()){
+			Bundle extras = getIntent().getExtras();
+		    tag = extras.getString("tag");
+		    //Toast.makeText(this, tag, Toast.LENGTH_LONG).show(); 
+			
+		}
+		
+	    
 		SharedPreferences prefs = getPreferences(MODE_PRIVATE); 
 		String uname= prefs.getString("username", null);
 		if (uname != null) 
@@ -45,7 +58,7 @@ public class LoginActivity extends Activity {
 		     cBox.setChecked(true);
 		  }
 		}
-		
+		isLoggedIn = false;
 		
 	}
 
@@ -55,6 +68,44 @@ public class LoginActivity extends Activity {
 		getMenuInflater().inflate(R.menu.login, menu);
 		return true;
 	}
+	public static boolean getLoginStatus(){
+		return isLoggedIn;
+	}
+	
+	/*@Override
+    public void onResume() {
+        super.onResume();
+        handleIntent(getIntent());
+    }
+	
+	 public void onNewIntent(Intent intent) {
+	        setIntent(intent);
+	    }
+
+		    
+	public void handleIntent(Intent intent) {
+		 super.onNewIntent(intent);
+		 
+         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction()) && !used) {  
+        	 
+              NdefMessage message = null; 
+              Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);  
+              if (rawMsgs != null) 
+            	  message = (NdefMessage) rawMsgs[0];   
+              
+              if(message != null) {
+            	  tag="";
+            	  byte[] payload = message.getRecords()[0].getPayload();  
+                   // this assumes that we get back am SOH followed by host/code  
+            	  for (int b = 1; b<payload.length; b++) { // skip SOH  
+                        tag += (char) payload[b];  
+                   }  
+                   Toast.makeText(this, "NFC tag found", Toast.LENGTH_LONG).show(); 
+                   used = true;
+                   
+              }  
+         }  
+     }*/
 	
 	public void onLogin(View v) {
 		SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
@@ -76,6 +127,7 @@ public class LoginActivity extends Activity {
 		
 	}
 	
+	 
 	
 	private class VerifyLogin extends AsyncTask<String, Void, String> {
     	//TextView text;
@@ -91,8 +143,12 @@ public class LoginActivity extends Activity {
 		{
 			if(result.length()==15){
 				Intent intent = new Intent(LoginActivity.this, SettingActivity.class);
+				isLoggedIn = true;
 				intent.putExtra("username", username.getText().toString());
-			    startActivity(intent);
+				
+				intent.putExtra("tag", tag);
+				
+				startActivity(intent);
 				
 			}
 			else{

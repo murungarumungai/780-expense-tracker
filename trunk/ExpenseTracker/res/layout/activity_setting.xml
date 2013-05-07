@@ -1,13 +1,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
+
 <RelativeLayout
     android:id="@+id/settingLayout"
-        android:layout_width="fill_parent"
-        android:layout_height="366dp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:orientation="vertical" >
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical" >
     
     <TableLayout
         android:id="@+id/setting_table"
@@ -90,14 +91,24 @@
      </TableLayout>   
         
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/viewExpense"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/setting_table"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="31dp"
-            android:onClick="onClick"
+            android:onClick="onClickView"
             android:text="@string/expense" />
+        <Button
+            android:id="@+id/addRecord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/viewExpense"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="31dp"
+            android:onClick="onClickAdd"
+            android:text="@string/addRecord" /> 
+         
          
  </RelativeLayout>   
 

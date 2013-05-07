@@ -6,41 +6,44 @@
     <string name="menu_settings">Settings</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_setting">ExpenseTracker</string>
-    
     <string name="expense">View Expense</string>
+    <string name="addRecord">Add Record</string>
+    <string name="submitRecord">Submit</string>
     <string name="categories">Categories</string>
     <string name="details">Details</string>
     <string name="mobileWallet">Mobile Wallet</string>
-    
     <string name="monthSetting">month</string>
     <string name="weekSetting">week</string>
     <string name="otherSetting">Other</string>
-    
+
     <string-array name="range_array">
         <item>Day</item>
         <item>Week</item>
         <item>Month</item>
         <item>Year</item>
     </string-array>
-    
     <string-array name="charts_array">
         <item>Pie Chart</item>
         <item>Bar Chart</item>
         <item>Line Chart</item>
     </string-array>
-    
     <string-array name="view_array">
         <item>By Category</item>
         <item>By Record</item>
-        
+    </string-array>
+    <string-array name="category_array">
+        <item>Grocery</item>
+        <item>Housing</item>
+        <item>Clothes</item>
+        <item>Transportation</item>
+        <item>Entertainment</item>
+        <item>Health Care</item>
+        <item>Others</item>
     </string-array>
 
-    
     <string name="walletSetting">Activate my mobile wallet</string>
-    
     <string name="category">By Category</string>
     <string name="record">By Record</string>
-    
-    
-    
+    <string name="title_activity_nfc">Confirm Record</string>
+
 </resources>
