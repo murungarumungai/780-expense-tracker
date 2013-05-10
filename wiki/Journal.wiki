@@ -191,6 +191,7 @@ Progress
 Lesson learned
 
 -read/write to NFC tag
+
 -foreground dispatch system for NFC tag
 
 
