@@ -175,3 +175,26 @@ Plan for next week
 -Improve UI
 
 -Test and fix bugs
+
+
+<h4>May 2 - May 9 </h4>
+
+Progress
+
+-Fixed the fragment display bug when changing orientation
+
+-Modified NfcActivity to make it respond to the NFC tag only when the application is in the foreground
+
+-Modified CategoryActivity to make it more efficient
+
+
+Lesson learned
+
+-read/write to NFC tag
+
+
+Plan for next week
+
+-Improve UI
+
+-Test and fix bugs
