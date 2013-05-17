@@ -188,6 +188,7 @@ Progress
 -Modified CategoryActivity to make it more efficient
 
 
+
 Lesson learned
 
 -read/write to NFC tag
@@ -197,6 +198,30 @@ Lesson learned
 
 Plan for next week
 
+-remove foreground dispatch system, define specific mime type for NFC tag
+
 -Improve UI
 
 -Test and fix bugs
+
+<h4>May 9 - May 16 </h4>
+
+Progress
+
+-Wrote a specific mime type ("application/tracker")to the NFC tag
+
+-read the NFC tag of "application/tracker" type and start the application
+
+
+Lesson learned
+
+-define custom mime type to read/write to NFC tag
+
+
+Plan for next week
+
+-Improve UI
+
+-Test and fix bugs
+
+-clean up code and add more documentation
