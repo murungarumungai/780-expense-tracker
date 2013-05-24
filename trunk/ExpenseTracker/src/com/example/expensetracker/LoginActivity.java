@@ -1,34 +1,26 @@
 package com.example.expensetracker;
 
 import java.util.ArrayList;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-
-
-import android.nfc.NdefMessage;
-import android.nfc.NfcAdapter;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-public class LoginActivity extends Activity {
-	private EditText username;
+/**
+ * LoginActivity takes user's input for username and password, verify in the database.
+ * If the username and password is correct, LoginActivity returns back to OverviewActivity.
+ */
+public class LoginActivity extends Activity implements OnTaskCompleted{
+	private static EditText username;
 	private EditText password;
 	private CheckBox cBox;
-	private String tag;
-	private static boolean isLoggedIn;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +31,8 @@ public class LoginActivity extends Activity {
 		password = (EditText) findViewById(R.id.password);
 		cBox = (CheckBox) findViewById(R.id.rememberBox);
 		
-		if(NfcActivity.getNfcActivityStatus()){
-			Bundle extras = getIntent().getExtras();
-		    tag = extras.getString("tag");
-		    //Toast.makeText(this, tag, Toast.LENGTH_LONG).show(); 
-			
-		}
-		
-	    
-		SharedPreferences prefs = getPreferences(MODE_PRIVATE); 
+		//show the username if the 'remember username' is checked
+		SharedPreferences prefs = getPreferences(MODE_PRIVATE);
 		String uname= prefs.getString("username", null);
 		if (uname != null) 
 		{
@@ -58,55 +43,14 @@ public class LoginActivity extends Activity {
 		     cBox.setChecked(true);
 		  }
 		}
-		isLoggedIn = false;
-		
+
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.login, menu);
-		return true;
-	}
-	public static boolean getLoginStatus(){
-		return isLoggedIn;
-	}
-	
-	/*@Override
-    public void onResume() {
-        super.onResume();
-        handleIntent(getIntent());
-    }
-	
-	 public void onNewIntent(Intent intent) {
-	        setIntent(intent);
-	    }
-
-		    
-	public void handleIntent(Intent intent) {
-		 super.onNewIntent(intent);
-		 
-         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction()) && !used) {  
-        	 
-              NdefMessage message = null; 
-              Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);  
-              if (rawMsgs != null) 
-            	  message = (NdefMessage) rawMsgs[0];   
-              
-              if(message != null) {
-            	  tag="";
-            	  byte[] payload = message.getRecords()[0].getPayload();  
-                   // this assumes that we get back am SOH followed by host/code  
-            	  for (int b = 1; b<payload.length; b++) { // skip SOH  
-                        tag += (char) payload[b];  
-                   }  
-                   Toast.makeText(this, "NFC tag found", Toast.LENGTH_LONG).show(); 
-                   used = true;
-                   
-              }  
-         }  
-     }*/
-	
+	 /*
+     * This method will be invoked whenever the 'Login' button is clicked in the
+     * LoginActivity. This method uses VerifyLogin AsyncTask to verify username
+     * and password in the database
+     */
 	public void onLogin(View v) {
 		SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
 
@@ -123,39 +67,63 @@ public class LoginActivity extends Activity {
 		String[] param =  new String[2];
         param[0] = username.getText().toString();
         param[1] = password.getText().toString();
-		new VerifyLogin().execute(param);
+		new VerifyLogin(this).execute(param);
 		
 	}
 	
-	 
+	/*
+	 * This method will be called if the the VerifyLogin AsyncTask verifies that the username
+	 * and password are correct. This method also stores the login status and username in the 
+	 * shared preference and returns back to the OverviewActivity. 
+	 */
+	public void onTaskCompleted(){
+		SharedPreferences.Editor editor = getSharedPreferences("loginStatus", MODE_PRIVATE).edit(); 
+		editor.putBoolean("isLoggedIn", true);
+		editor.putString("username", username.getText().toString());
+		editor.commit();
+		Intent returnIntent = new Intent();
+		returnIntent.putExtra("username",username.getText().toString());
+		setResult(RESULT_OK,returnIntent);    
+		finish();
+	}
 	
-	private class VerifyLogin extends AsyncTask<String, Void, String> {
-    	//TextView text;
+	//when press the back button, finish the LoginActivity
+	public void onBackPressed(){
+		Intent returnIntent = new Intent();
+		setResult(RESULT_CANCELED,returnIntent);    
+		finish();
+	}
+	/**
+	 * VerifyLogin defines the AsyncTask to post the username and password to login.php,
+	 * which verifies the username and password in the database
+	 */
+	public class VerifyLogin extends AsyncTask<String, Void, String > {
+		private OnTaskCompleted listener;
+		public VerifyLogin(OnTaskCompleted listener){
+	        this.listener=listener;
+	    }
+
 
 		@Override
-		protected String doInBackground(String... args) {
+		//verify username and password in the database
+		protected String  doInBackground(String... args) {
 			ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		    nameValuePairs.add(new BasicNameValuePair("username",args[0]));
 		    nameValuePairs.add(new BasicNameValuePair("password",args[1]));
 			return CustomHttpClient.getResult("http://thecity.sfsu.edu/~weiw/login.php", nameValuePairs);
 		}
-		protected void onPostExecute(String result)
-		{
-			if(result.length()==15){
-				Intent intent = new Intent(LoginActivity.this, SettingActivity.class);
-				isLoggedIn = true;
-				intent.putExtra("username", username.getText().toString());
-				
-				intent.putExtra("tag", tag);
-				
-				startActivity(intent);
-				
-			}
-			else{
+		
+		protected void onPostExecute(String result){
+			if(result.substring(0,1).equals("0")){
 				Toast.makeText(getApplicationContext(), "wrong username/password", Toast.LENGTH_SHORT).show();
 			}
-				
-	    	  	
+			
+			else if(result.equals("No internet connection") || result.equals("Error converting result") ){
+				Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+			}
+			else
+				listener.onTaskCompleted();
+			
 		}	
     	
     

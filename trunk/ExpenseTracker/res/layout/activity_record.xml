@@ -1,79 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout 
-    android:id="@+id/addRecordLayout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
- <TableLayout
-        android:id="@+id/add_table"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-        
-      <TableRow>     
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"  >   
+    
+    <RelativeLayout 
+        android:id="@+id/addRecordLayout"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" 
+	    android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true">
+	    
+	    <TableLayout
+	        android:id="@+id/add_table"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" >
+	        
+	      <TableRow>     
+	
+	        <TextView
+	            android:id="@+id/record_category"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="5dp"
+	            android:layout_marginTop="40dp"
+	            android:text="@string/record_category"
+	            android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+	        <Spinner
+	            android:id="@+id/category_spinner"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginTop="31dp" />
+	        </TableRow>  
+	        
+	      <TableRow >
+	
+	        <TextView
+	            android:id="@+id/record_description"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="5dp"
+	            android:layout_marginTop="43dp"
+	            android:text="@string/record_description"
+	            android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+	        <EditText
+	            android:id="@+id/description_text"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginTop="41dp"
+	            android:textAppearance="?android:attr/textAppearanceLarge" />
+	        
+	       </TableRow>  
+	       
+	       <TableRow>
 
-        <TextView
-            android:id="@+id/record_category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="40dp"
-            android:text="Category: "
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <Spinner
-            android:id="@+id/category_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="31dp" />
-        </TableRow>  
-        
-      <TableRow >
-
-        <TextView
-            android:id="@+id/record_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="43dp"
-            android:text="Description: "
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <EditText
-            android:id="@+id/description_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="41dp"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-        
-       </TableRow>  
-       
-       <TableRow>     
-
-        <TextView
-            android:id="@+id/record_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="43dp"
-            android:text="                 $"
-            android:textAlignment ="textEnd"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <EditText
-            android:id="@+id/amount_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="31dp"
-            android:inputType="numberDecimal"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-        
-       </TableRow>  
-        
- 
- 
- </TableLayout>    
- 
- <Button
+	           <TextView
+	               android:id="@+id/record_amount"
+	               android:layout_width="wrap_content"
+	               android:layout_height="wrap_content"
+	               android:layout_marginLeft="5dp"
+	               android:layout_marginTop="43dp"
+	               android:text="@string/record_price"
+	               android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+	        <EditText
+	            android:id="@+id/amount_text"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_marginTop="31dp"
+	            android:inputType="numberDecimal"
+	            android:textAppearance="?android:attr/textAppearanceLarge" />
+	        
+	       </TableRow>  
+	        
+	 
+	 
+	 </TableLayout>
+	 
+	 <Button
      android:id="@+id/submitRecord"
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
@@ -82,5 +87,6 @@
      android:layout_marginTop="80dp"
      android:onClick="onClickSubmit"
      android:text="@string/submitRecord" />
-
-</RelativeLayout>
+    
+    </RelativeLayout>
+</ScrollView>
