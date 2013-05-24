@@ -230,7 +230,7 @@ Plan for next week
 
 Progress
 
--Cleanup the code,added more documentations
+-Cleaned up the code,added more documentations
 
 -Renamed SettingActivity class to OverviewActivity class and made this class as the main/default class for the application
 
