@@ -235,3 +235,7 @@ Progress
 -Renamed SettingActivity class to OverviewActivity class and made this class as the main/default class for the application
 
 -Prepared final demo
+
+Lesson learned
+
+-more about activity life cycle
