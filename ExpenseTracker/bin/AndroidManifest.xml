@@ -6,7 +6,8 @@
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="17" />
+        android:targetSdkVersion="16" />
+
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.NFC" />
@@ -16,23 +17,18 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.expensetracker.LoginActivity"
+            android:name="com.example.expensetracker.OverviewActivity"
             android:label="@string/title_activity_setting" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            
-            <!--<intent-filter>
-                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="text/plain" />
-            </intent-filter>-->
-             
+
         </activity>
         <activity android:name="com.example.expensetracker.SignupActivity" />
-        <activity android:name="com.example.expensetracker.SettingActivity" />
+        <activity android:name="com.example.expensetracker.LoginActivity" />
+         <activity android:name="com.example.expensetracker.LogoutActivity" />
         <activity android:name="com.example.expensetracker.ExpenseActivity" />
         <activity android:name="com.example.expensetracker.RecordActivity" />
         <activity
@@ -40,12 +36,13 @@
             android:label="@string/title_activity_nfc" 
             android:theme="@android:style/Theme.Holo.Light.Dialog">
             
+        </activity>
+        <activity android:name="com.example.expensetracker.ControlActivity" >
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="text/plain" />
-            </intent-filter>
-            
+                <data android:mimeType="application/tracker" />
+                </intent-filter>
         </activity>
     </application>
 
