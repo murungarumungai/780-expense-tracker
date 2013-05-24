@@ -225,3 +225,13 @@ Plan for next week
 -Test and fix bugs
 
 -clean up code and add more documentation
+
+<h4>May 16 - May 23 </h4>
+
+Progress
+
+-Cleanup the code,added more documentations
+
+-Renamed SettingActivity class to OverviewActivity class and made this class as the main/default class for the application
+
+-Prepared final demo
