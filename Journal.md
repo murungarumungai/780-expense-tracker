@@ -1,0 +1,241 @@
+<h4>Feb 28 - Mar 07  Project design  </h4>
+
+
+<h4>Mar 14 - Mar 21 </h4>
+
+Progress
+
+-Use action bar to navigate among "expense", "setting" and "mobile wallet" screen.
+
+-Implemented the very first two UI's.
+
+Problems
+
+-the UI might not be intuitive
+
+-haven't pick what kind of backend database to use
+
+Lesson learned
+
+-use of action bar and fragment for navigation
+
+-need other user's feedback on UI
+
+Plan for next week
+
+-continue implementing UI
+
+-pick a backend database to use
+
+<h4>Mar 21 - Mar 28 </h4>
+
+Progress
+
+-Changed the previous UI. Make a separate activity to allow user to set the data range and preferred chart type.<br />
+-Set up the connection between device and backend database.<br />
+-Finished UI for the login and signup page.
+
+Lesson Learned
+
+how to connect to MySQL database via HttpClient and parse JSON format
+
+Plan for next week
+
+-Finish UI implementation
+
+-Implement login and signup mechanism
+
+-populate MysQL database
+
+
+<h4>Mar 28 - Apr 4 </h4>
+
+Progress
+
+-Finished UI implementation,added datepicker dialog to set up date range
+
+-Finished login mechanism
+
+-Populated MySQL database with one user account/record
+
+
+Lesson learned
+
+-Use android datepicker to select date
+
+-Query the MySQL database with specified username and password
+
+Plan for next week
+
+-add more records to the database
+
+-allow one user to have different accounts
+
+-Format the layout of the data retrieved from the database
+
+-Use the chart library to make charts with the data from database
+
+<h4>Apr 4 - Apr 11 </h4>
+
+Progress
+
+-Implemented pie chart to visualize result
+
+-Used sharedPreferences to store username in the device
+
+-Used drop down list of to let user pick different accounts
+
+-Added more data in the database
+
+-changed date picker, with start date and date range
+
+Lesson learned
+
+-Use google chart tool to implement chart
+
+-Use sharedPreference to store information in the device
+
+
+Plan for next week
+
+-add purchase button to allow user input purchase
+
+-add balance table in the database to record the account's balance
+
+-read/write NFC tag
+
+<h4>Apr 11 - Apr 18 </h4>
+
+Progress
+
+-Implemented 2 additional chart type(bar chart, line chart) to visualize result
+
+-added the account type(saving, checking, credit card) to the account table in the database
+
+-added the account type along with the account number in the drop down list on the device to let user pick the account
+
+-changed database to allow balance calculation
+
+
+Lesson learned
+
+-Use google chart tool to implement bar chart and line chart
+
+-read/write to NFC tag
+
+Plan for next week
+
+-add purchase button to allow user input purchase
+
+-update the database when user input purchase
+
+-read/write to NFC tag
+
+<h4>Apr 18 - Apr 25 </h4>
+
+Progress
+
+-added purchase button to allow user input purchase
+
+-updated the database to when user inputs purchase record
+
+-write to NFC tag
+
+
+Lesson learned
+
+-insert to database
+
+-read/write to NFC tag
+
+
+Plan for next week
+
+-read NFC tag and parse the information
+
+-update record according to the information in the NFC tag
+
+
+<h4>Apr 25 - May 2 </h4>
+
+Progress
+
+-implemented purchase using NFC tag functionality
+
+-updated record according to the information in the NFC tag
+
+
+Lesson learned
+
+-read/write to NFC tag
+
+
+Plan for next week
+
+-Improve UI
+
+-Test and fix bugs
+
+
+<h4>May 2 - May 9 </h4>
+
+Progress
+
+-Fixed the fragment display bug when changing orientation
+
+-Modified NfcActivity to make it respond to the NFC tag only when the application is in the foreground
+
+-Modified CategoryActivity to make it more efficient
+
+
+
+Lesson learned
+
+-read/write to NFC tag
+
+-foreground dispatch system for NFC tag
+
+
+Plan for next week
+
+-remove foreground dispatch system, define specific mime type for NFC tag
+
+-Improve UI
+
+-Test and fix bugs
+
+<h4>May 9 - May 16 </h4>
+
+Progress
+
+-Wrote a specific mime type ("application/tracker")to the NFC tag
+
+-read the NFC tag of "application/tracker" type and start the application
+
+
+Lesson learned
+
+-define custom mime type to read/write to NFC tag
+
+
+Plan for next week
+
+-Improve UI
+
+-Test and fix bugs
+
+-clean up code and add more documentation
+
+<h4>May 16 - May 23 </h4>
+
+Progress
+
+-Cleaned up the code,added more documentations
+
+-Renamed SettingActivity class to OverviewActivity class and made this class as the main/default class for the application
+
+-Prepared final demo
+
+Lesson learned
+
+-more about activity life cycle
